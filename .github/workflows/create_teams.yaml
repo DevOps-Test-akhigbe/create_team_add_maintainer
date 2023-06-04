@@ -11,11 +11,23 @@ on:
         type: string
         description: Enter the name of github team maintainer
 
+# jobs:
+#   greet:
+#     runs-on: ubuntu-latest
+
 jobs:
-  greet:
+  build:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8    
+    # steps:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
