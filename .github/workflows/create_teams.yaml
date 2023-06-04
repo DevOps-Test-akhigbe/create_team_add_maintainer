@@ -39,4 +39,4 @@ jobs:
       
     - name: Run Python script with inputs
       run: |
-        python create_add_member_maintainer.py "${{ github.event.inputs.name }}" "${{ github.event.inputs.maintainer }}" "${{ github.event.inputs.org }}" ${{ secrets.ACCESS_TOKEN }}
+        python create_add_member_maintainer.py "${{ github.event.inputs.name }}" "${{ github.event.inputs.org}}" "${{ secrets.ACCESS_TOKEN }}" "${{ github.event.inputs.maintainer }}"
