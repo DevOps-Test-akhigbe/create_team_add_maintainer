@@ -1,19 +1,26 @@
-name: Interactive Workflow
+name: Mixed inputs
+
 on:
   workflow_dispatch:
     inputs:
-      input1:
-        description: 'Input 1 description'
+      name:
+        type: choice
+        description: Who to greet
+        options: 
+        - monalisa
+        - cschleiden
+      message:
         required: true
-      input2:
-        description: 'Input 2 description'
-        required: true
+      use-emoji:
+        type: boolean
+        description: Include 🎉🤣 emojis
+      environment:
+        type: environment
 
 jobs:
-  build:
+  greet:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Display Inputs
-        run: |
-          echo "Input 1: ${{ github.event.inputs.input1 }}"
-          echo "Input 2: ${{ github.event.inputs.input2 }}"
+    - name: Send greeting
+      run: echo "${{ github.event.inputs.message }} ${{ fromJSON('["", "🥳"]')[github.event.inputs.use-emoji == 'true'] }} ${{ github.event.inputs.name }}"
