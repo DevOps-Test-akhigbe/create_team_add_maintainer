@@ -1,0 +1,18 @@
+name: Interactive Workflow
+on:
+  workflow_dispatch:
+inputs:
+  name:
+    description: 'Enter your name'
+    required: true
+  age:
+    description: 'Enter your age'
+    required: true
+jobs:
+  interactive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Inputs
+        run: |
+          echo "Hello, ${{ inputs.name }}!"
+          echo "Your age is ${{ inputs.age }}."
