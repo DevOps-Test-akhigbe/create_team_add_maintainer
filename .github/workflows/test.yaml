@@ -1,36 +1,36 @@
-name: Create Team and Maintainer
+# name: Create Team and Maintainer
 
-on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
+# on:
+#   workflow_dispatch:
+#   push:
+#     branches:
+#       - main
 
-jobs:
-  create-team:
-    runs-on: ubuntu-latest
+# jobs:
+#   create-team:
+#     runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+#     steps:
+#     - name: Checkout repository
+#       uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.x
+#     - name: Set up Python
+#       uses: actions/setup-python@v2
+#       with:
+#         python-version: 3.x
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+#     - name: Install dependencies
+#       run: |
+#         python -m pip install --upgrade pip
+#         pip install -r requirements.txt
 
-    - name: Prompt for inputs
-      run: |
-        echo "Enter Maintainer:"
-        read MAINTAINER
-        echo "Enter Team Name:"
-        read TEAM_NAME
+#     - name: Prompt for inputs
+#       run: |
+#         echo "Enter Maintainer:"
+#         read MAINTAINER
+#         echo "Enter Team Name:"
+#         read TEAM_NAME
 
-    - name: Run Python script
-      run: |
-        python create_team_add_maintanier.py $MAINTAINER $TEAM_NAME
+#     - name: Run Python script
+#       run: |
+#         python create_team_add_maintanier.py $MAINTAINER $TEAM_NAME
