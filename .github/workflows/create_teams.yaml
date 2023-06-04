@@ -11,6 +11,10 @@ on:
         type: string
         description: Enter the name of github team maintainer
 
+      org:
+        type: string
+        description: Enter the name of github team org  
+
 # jobs:
 #   greet:
 #     runs-on: ubuntu-latest
@@ -35,4 +39,4 @@ jobs:
       
     - name: Run Python script with inputs
       run: |
-        python create_team_add_maintanier.py "${{ github.event.inputs.name }}" "${{ github.event.inputs.maintainer }}" ${{ secrets.ACCESS_TOKEN }}
+        python create_add_member_maintainer.py "${{ github.event.inputs.name }}" "${{ github.event.inputs.maintainer }}" "${{ github.event.inputs.org }}" ${{ secrets.ACCESS_TOKEN }}
