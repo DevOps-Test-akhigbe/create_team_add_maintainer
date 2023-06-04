@@ -1,10 +1,10 @@
 import sys
 import requests
 
-def create_github_team(team_name, organization, github_token):
+def create_github_team(team_name, organization, ACCESS_TOKEN):
     url = f"https://api.github.com/orgs/{organization}/teams"
     headers = {
-        "Authorization": f"Bearer {github_token}",
+        "Authorization": f"Bearer {ACCESS_TOKEN}",
         "Accept": "application/vnd.github.v3+json"
     }
     payload = {
@@ -20,10 +20,10 @@ def create_github_team(team_name, organization, github_token):
         print(f"Failed to create GitHub team. Error: {response.text}")
         return None
 
-def add_team_member(team_id, username, organization, github_token):
+def add_team_member(team_id, username, organization, ACCESS_TOKEN):
     url = f"https://api.github.com/teams/{team_id}/memberships/{username}"
     headers = {
-        "Authorization": f"Bearer {github_token}",
+        "Authorization": f"Bearer {ACCESS_TOKEN}",
         "Accept": "application/vnd.github.v3+json"
     }
     payload = {
@@ -36,10 +36,10 @@ def add_team_member(team_id, username, organization, github_token):
     else:
         print(f"Failed to add team member. Error: {response.text}")
 
-def promote_member_to_maintainer(team_id, username, organization, github_token):
+def promote_member_to_maintainer(team_id, username, organization, ACCESS_TOKEN):
     url = f"https://api.github.com/teams/{team_id}/memberships/{username}"
     headers = {
-        "Authorization": f"Bearer {github_token}",
+        "Authorization": f"Bearer {ACCESS_TOKEN}",
         "Accept": "application/vnd.github.v3+json"
     }
     payload = {
@@ -59,10 +59,10 @@ if __name__ == "__main__":
 
     team_name = sys.argv[1]
     organization = sys.argv[2]
-    github_token = sys.argv[3]
+    ACCESS_TOKEN = sys.argv[3]
     member_username = sys.argv[4]
 
-    team_id = create_github_team(team_name, organization, github_token)
+    team_id = create_github_team(team_name, organization, ACCESS_TOKEN)
     if team_id:
-        add_team_member(team_id, member_username, organization, github_token)
-        promote_member_to_maintainer(team_id, member_username, organization, github_token)
+        add_team_member(team_id, member_username, organization, ACCESS_TOKEN)
+        promote_member_to_maintainer(team_id, member_username, organization, ACCESS_TOKEN)
