@@ -35,4 +35,4 @@ jobs:
       
     - name: Run Python script with inputs
       run: |
-        python create_team_add_maintanier.py "${{ github.event.inputs.name }}" "${{ github.event.inputs.maintainer }}"
+        python create_team_add_maintanier.py "${{ github.event.inputs.name }}" "${{ github.event.inputs.maintainer }}" ${{ secrets.ACCESS_TOKEN }}

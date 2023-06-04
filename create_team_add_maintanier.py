@@ -2,9 +2,8 @@ import sys
 import requests
 
 # GitHub access token (replace with your own token)
-ACCESS_TOKEN = "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"
 
-def create_github_team(team_name):
+def create_github_team(team_name, ACCESS_TOKEN):
     url = "https://api.github.com/orgs/DevOps-Test-akhigbe/teams"
     headers = {
         "Authorization": f"token {ACCESS_TOKEN}",
@@ -22,7 +21,7 @@ def create_github_team(team_name):
         print(f"Failed to create GitHub team. Error: {response.text}")
 
 
-def add_team_maintainer(team_name, maintainer):
+def add_team_maintainer(team_name, maintainer, ACCESS_TOKEN):
     url = f"https://api.github.com/orgs/DevOps-Test-akhigbe/teams/{team_name}/maintainers/{maintainer}"
     headers = {
         "Authorization": f"token {ACCESS_TOKEN}",
@@ -37,12 +36,13 @@ def add_team_maintainer(team_name, maintainer):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 3:
+    if len(sys.argv) < 4:
         print("Usage: python create_github_team.py <team_name> <maintainer>")
         sys.exit(1)
 
     team_name = sys.argv[1]
     maintainer = sys.argv[2]
+    ACCESS_TOKEN = sys.argv[3]
 
-    create_github_team(team_name)
-    add_team_maintainer(team_name, maintainer)
+    create_github_team(team_name, ACCESS_TOKEN)
+    add_team_maintainer(team_name, maintainer, ACCESS_TOKEN)
