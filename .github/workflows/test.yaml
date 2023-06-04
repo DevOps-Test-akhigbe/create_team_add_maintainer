@@ -2,6 +2,9 @@ name: Create Team and Maintainer
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   create-team:
