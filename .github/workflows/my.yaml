@@ -1,18 +1,28 @@
 name: Interactive Workflow
 on:
-  workflow_dispatch:
-inputs:
-  name:
-    description: 'Enter your name'
-    required: true
-  age:
-    description: 'Enter your age'
-    required: true
+  push:
+    branches:
+      - main
+
 jobs:
-  interactive:
+  interactive-job:
     runs-on: ubuntu-latest
     steps:
-      - name: Print Inputs
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Prompt for inputs
+        id: prompts
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.MY_TOKEN }}
+          script: |
+            const inputs = {};
+            inputs.input1 = await github.prompt('Please enter value for input 1');
+            inputs.input2 = await github.prompt('Please enter value for input 2');
+            return inputs
+
+      - name: Display inputs
         run: |
-          echo "Hello, ${{ inputs.name }}!"
-          echo "Your age is ${{ inputs.age }}."
+          echo "Input 1: ${{ steps.prompts.outputs.input1 }}"
+          echo "Input 2: ${{ steps.prompts.outputs.input2 }}"
