@@ -1,0 +1,63 @@
+name: Python CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Interactively prompt for inputs
+      id: inputs
+      uses: actions/github-script@v4
+      with:
+        github-token: ${{ secrets.MY_TOKEN }}
+        script: |
+          const readline = require('readline');
+
+          async function getInputs() {
+            const rl = readline.createInterface({
+              input: process.stdin,
+              output: process.stdout
+            });
+
+            const input1 = await new Promise(resolve => {
+              rl.question('Enter input 1: ', resolve);
+            });
+
+            const input2 = await new Promise(resolve => {
+              rl.question('Enter input 2: ', resolve);
+            });
+
+            rl.close();
+
+            return {
+              input1: input1,
+              input2: input2
+            };
+          }
+
+          return getInputs();
+          
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt      
+      
+    - name: Run Python script with inputs
+      run: |
+        python create_team_add_maintanier.py "${{ steps.inputs.outputs.input1 }}" "${{ steps.inputs.outputs.input2 }}"
