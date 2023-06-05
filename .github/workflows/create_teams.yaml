@@ -1,4 +1,4 @@
-name: Mixed inputs
+name: Create GitHub team  and promote member to team maintainer
 
 on:
   workflow_dispatch:
